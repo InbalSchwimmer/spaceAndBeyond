@@ -21,7 +21,7 @@ class BasePage:
             return self.driver.find_element(*locator).text
         except NoSuchElementException:
             return False
-        
+
     def fill_text(self, locator, text):
         self.driver.find_element(*locator).clear()
         self.driver.find_element(*locator).send_keys(text)
