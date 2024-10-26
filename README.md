@@ -4,7 +4,7 @@
 ⭐ This is a testing automation demo project that tests 'Space & Beyond' site. ⭐
 
   <p align="left">
-  <img src="ScreenShots/nextWebsite.jpg" width="40%" alt="Example for screenshot on failure" />
+  <img src="ScreenShots/homePage.JPG" width="40%" alt="Example for screenshot on failure" />
   </p>
   
 🔗  https://demo.testim.io/
@@ -39,10 +39,14 @@ The project follows the Page Object Model (POM) design pattern for a modular and
   ```
   scoop install allure
   ```
-  
+   	run suits by types of tests from terminal:
+  ```
+  pytest -m "functional" --alluredir=allure-results
+  ```
+   
 ## 📊 Reports Examples
 <p>
-  <img src="ScreenShots/allure_report_example.jpg" width="40%" title="Example for screenshot on failure"  />
+  <img src="ScreenShots/allure_reports_example.JPG" width="40%" title="Example for screenshot on failure"  />
 </p>
 
 
