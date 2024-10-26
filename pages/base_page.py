@@ -23,7 +23,13 @@ class BasePage:
             return False
 
     def fill_text(self, locator, text):
-        self.driver.find_element(*locator).clear()
+        try:
+            WebDriverWait(self.driver, 10).until(
+                EC.invisibility_of_element(locator)
+            )
+            self.driver.find_element(*locator).clear()
+        except NoSuchElementException:
+            print("Element not exist")
         self.driver.find_element(*locator).send_keys(text)
 
     def element_exist(self, locator):
@@ -34,7 +40,12 @@ class BasePage:
             self.driver.find_element(*locator)
             return True
         except NoSuchElementException:
-
             return False
 
+    def get_current_url(self):
+        current_url = self.driver.current_url
+        return  current_url
+
+    def scroll_to_page_bottom(self):
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 

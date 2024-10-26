@@ -1,11 +1,55 @@
 import time
-
+import allure
+import pytest
+from allure_commons.types import Severity
 from pages.home_page import HomePage
+from utills.config import ConfigReader
 
 
 class TestBookingFlight:
 
+    @pytest.mark.functional
+    @pytest.mark.regression
+    @allure.severity(Severity.BLOCKER)
+    @allure.description("This test verifies that click on book a flight button after filling in the flight details "
+                        "will display checkout section by verifying url")
+    @allure.title("Verify flight booking redirects to checkout")
     def test_booking_flight(self):
         book_flight = HomePage(self.driver)
-        book_flight.click(HomePage.DEPARTURE_DATE_PICKER)
+        with allure.step("Select departure date"):
+            book_flight.click_on_departure_picker()
+            book_flight.select_departure_date()
+            book_flight.click(HomePage.CALENDER_OK_BTN)
+        with allure.step("Select returning date"):
+            book_flight.click_on_returning_picker()
+            book_flight.select_returning_date()
+            book_flight.click(HomePage.CALENDER_OK_BTN)
+        with allure.step("Select number of adults"):
+            book_flight.select_number_of_adults(3)
+        with allure.step("Select number of children"):
+            book_flight.select_number_of_children(2)
+        with allure.step("Select planet color of adults"):
+            book_flight.select_planet_color("Blue")
+        with allure.step("Select price"):
+            book_flight.slide_to_price(1000)
+        with allure.step("Select destination"):
+            book_flight.scroll_to_element_and_click(HomePage.BOOK_BABAHOYO_BTN)
+        with allure.step("Assert url change to checkout url"):
+            current_url = book_flight.get_current_url()
+            expected_url = ConfigReader.read_config("general", "checkout_url")
+            assert current_url == expected_url
 
+    @pytest.mark.regression
+    @allure.severity(Severity.NORMAL)
+    @allure.description("This test verifies that departure date display as was entered")
+    @allure.title("Verify departure date display as set")
+    def test_departure_date(self):
+        book_flight = HomePage(self.driver)
+        with allure.step("Select departure date"):
+            book_flight.click_on_departure_picker()
+            book_flight.select_departure_date()
+            book_flight.click(HomePage.CALENDER_OK_BTN)
+        with allure.step("Assert selected departure date as requested"):
+            displayed_departure_date = book_flight.get_selected_departure_date()
+            # Convert book_flight.departure_date to string for comparison
+            assert displayed_departure_date == book_flight.departure_date.strftime("%d %B %Y")
