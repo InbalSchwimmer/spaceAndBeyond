@@ -24,16 +24,7 @@ class TestBookingFlight:
             book_flight.click_on_returning_picker()
             book_flight.select_returning_date()
             book_flight.click(HomePage.CALENDER_OK_BTN)
-        with allure.step("Select number of adults"):
-            book_flight.select_number_of_adults(3)
-        with allure.step("Select number of children"):
-            book_flight.select_number_of_children(2)
-        with allure.step("Select planet color of adults"):
-            book_flight.select_planet_color("Blue")
-        with allure.step("Select price"):
-            book_flight.slide_to_price(1000)
-        with allure.step("Select destination"):
-            book_flight.scroll_to_element_and_click(HomePage.BOOK_BABAHOYO_BTN)
+        book_flight.fill_travel_data(3,2, "blue", 1000, HomePage.BOOK_BABAHOYO_BTN )
         with allure.step("Assert url change to checkout url"):
             current_url = book_flight.get_current_url()
             expected_url = ConfigReader.read_config("general", "checkout_url")

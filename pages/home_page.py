@@ -1,5 +1,6 @@
 import time
 
+import allure
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -34,15 +35,17 @@ class HomePage(BasePage):
         self.departure_date = None  # Initialize the departure date attribute
 
     def click_on_departure_picker(self):
+        time.sleep(1)
         dates = self.driver.find_elements(By.CSS_SELECTOR, "[data-react-toolbox='date-picker']")
         dates[0].click()
 
     def click_on_returning_picker(self):
-        time.sleep(2)
+        time.sleep(1)
         dates = self.driver.find_elements(By.CSS_SELECTOR, "[data-react-toolbox='date-picker']")
         dates[1].click()
 
     def select_departure_date(self):
+        time.sleep(1)
         # Add 2 months to the current date
         self.departure_date = datetime.now() + relativedelta(months=2)  # Store as datetime object
         target_day = self.departure_date.day
@@ -75,6 +78,7 @@ class HomePage(BasePage):
             print(f"Error selecting departure date: {e}")
 
     def select_returning_date(self):
+        time.sleep(1)
         # Calculate the target date (1 week from departure date)
         target_date = self.departure_date + timedelta(weeks=1)  # This will now work
         target_day = target_date.day
@@ -117,6 +121,9 @@ class HomePage(BasePage):
             print(f"Error retrieving selected departure date: {e}")
 
     def select_number_of_adults(self, value):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.ADULTS_DROPDOWN)
+        )
         # Click the dropdown to display options
         self.click(self.ADULTS_DROPDOWN)
 
@@ -137,6 +144,7 @@ class HomePage(BasePage):
             print(f"Value '{value}' not found in the adults dropdown.")
 
     def select_number_of_children(self, value):
+        time.sleep(1)
         # Click the dropdown to display options
         self.click(self.CHILDREN_DROPDOWN)
 
@@ -157,6 +165,7 @@ class HomePage(BasePage):
             print(f"Value '{value}' not found in the children dropdown.")
 
     def select_planet_color(self, value):
+        time.sleep(1)
         # Click the dropdown to display options
         self.click(self.PLANET_COLOR_DROPDOWN)
 
@@ -167,10 +176,10 @@ class HomePage(BasePage):
 
         # Locate all the options in the dropdown specifically related to adults
         options = self.driver.find_elements(*self.PLANET_COLOR_OPTION)
-
+        color_value = str(value).lower()
         # Loop through the options and select the one that matches the value
         for option in options:
-            if option.text == value:
+            if option.text.lower() == value:
                 time.sleep(1)
                 option.click()
                 break
@@ -219,3 +228,16 @@ class HomePage(BasePage):
 
         # Click the button
         button.click()
+
+    def fill_travel_data(self, adults, children, color, price, destination):
+        with allure.step("Select number of adults"):
+            self.select_number_of_adults(adults)
+        with allure.step("Select number of children"):
+            self.select_number_of_children(children)
+        with allure.step("Select planet color of adults"):
+            self.select_planet_color(color)
+        with allure.step("Select price"):
+            self.slide_to_price(price)
+        with allure.step("Select destination"):
+            self.scroll_to_element_and_click(destination)
+
