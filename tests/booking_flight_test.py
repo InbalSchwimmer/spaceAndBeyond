@@ -12,7 +12,7 @@ class TestBookingFlight:
     @pytest.mark.regression
     @allure.severity(Severity.BLOCKER)
     @allure.description("This test verifies that click on book a flight button after filling in the flight details "
-                        "will display checkout section by verifying url")
+                        "will navigates to checkout page section by verifying url")
     @allure.title("Verify flight booking redirects to checkout")
     def test_booking_flight(self):
         book_flight = HomePage(self.driver)
@@ -44,3 +44,21 @@ class TestBookingFlight:
             displayed_departure_date = book_flight.get_selected_departure_date()
             # Convert book_flight.departure_date to string for comparison
             assert displayed_departure_date == book_flight.departure_date.strftime("%d %B %Y")
+
+    @pytest.mark.regression
+    @allure.severity(Severity.NORMAL)
+    @allure.description("This test verifies that click on 'select destination' button will navigates to select  "
+                        "destination selection page")
+    @allure.title("Verify 'Select Destination' button navigates to the destination selection page")
+    def test_destination_btn(self):
+        book_flight = HomePage(self.driver)
+        with allure.step("Select departure date"):
+            book_flight.click_on_departure_picker()
+            book_flight.select_departure_date()
+            book_flight.click(HomePage.CALENDER_OK_BTN)
+        with allure.step("Assert click on destination btn will display destination url"):
+            book_flight.click(book_flight.SELECT_DESTINATION_BTN)
+            current_url = book_flight.get_current_url()
+            expected_url = ConfigReader.read_config("general", "destinations_url")
+            assert current_url == expected_url
+

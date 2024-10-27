@@ -29,6 +29,7 @@ class HomePage(BasePage):
         By.XPATH, "//ul[contains(@class, 'theme__values___1jS4g') and .//li[text()='Planet color']]//li")
     PROGRESS_BAR = (By.CSS_SELECTOR, "[data-react-toolbox='progress-bar']")
     BOOK_BABAHOYO_BTN = (By.CSS_SELECTOR, " div > div:nth-child(3) > div button")
+    SELECT_DESTINATION_BTN = (By.CSS_SELECTOR, ".Hero__cta-button___9VskW")
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -144,8 +145,11 @@ class HomePage(BasePage):
             print(f"Value '{value}' not found in the adults dropdown.")
 
     def select_number_of_children(self, value):
-        time.sleep(1)
+
         # Click the dropdown to display options
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.CHILDREN_DROPDOWN)
+        )
         self.click(self.CHILDREN_DROPDOWN)
 
         # Wait until the options are visible
@@ -190,6 +194,9 @@ class HomePage(BasePage):
 
     def slide_to_price(self, target_price):
         # Locate the progress bar element
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.PROGRESS_BAR)
+        )
         progress_bar = self.driver.find_element(*self.PROGRESS_BAR)
 
         # Retrieve min, max, and width properties of the progress bar
