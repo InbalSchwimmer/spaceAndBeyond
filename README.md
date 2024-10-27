@@ -46,7 +46,7 @@ The project follows the Page Object Model (POM) design pattern for a modular and
    
 ## 📊 Reports Examples
 <p>
-  <img src="ScreenShots/allure_reports_example.JPG" width="40%" title="Example for screenshot on failure"  />
+  <img src="ScreenShots/allure_reports.JPG" width="40%" title="Example for screenshot on failure"  />
 </p>
 
 
