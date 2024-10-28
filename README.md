@@ -26,7 +26,7 @@ The project follows the Page Object Model (POM) design pattern for a modular and
 | **Selenium WebDriver:**   | The project includes Selenium WebDriver for automating browser interactions        |
 | **Page Object Model (POM):**   | The project follows the POM design pattern, enhancing test maintainability and reusability by separating page elements and actions.        |
 | **Allure Reports:**   | Test results are documented using Allure Reports, providing a clear and interactive visualization of test execution.        |
-    |
+
 
 
 ## 📊 Reports
@@ -39,10 +39,21 @@ The project follows the Page Object Model (POM) design pattern for a modular and
   ```
   scoop install allure
   ```
-   	run suits by types of tests from terminal:
+<p>
+   	Run suits by types of tests from terminal:
+</p>
+
   ```
-  pytest -m "functional" --alluredir=allure-results
+  pytest -m "functional or regression" --alluredir=allure-results
   ```
+
+<p>
+   	Viewing reports:
+</p>
+
+```
+allure serve allure-results
+```
    
 ## 📊 Reports Examples
 <p>
