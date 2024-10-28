@@ -195,6 +195,7 @@ class HomePage(BasePage):
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(self.PROGRESS_BAR)
         )
+        # Access the progress bar’s attributes
         progress_bar = self.driver.find_element(*self.PROGRESS_BAR)
 
         # Retrieve min, max, and width properties of the progress bar
