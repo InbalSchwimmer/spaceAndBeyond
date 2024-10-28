@@ -39,7 +39,6 @@ class TestCheckout:
     @allure.title("Verify order price as expected")
     def test_total_order_price(self):
         book_flight = HomePage(self.driver)
-        # self.driver.refresh()
         with allure.step("Select departure date"):
             book_flight.click_on_departure_picker()
             book_flight.select_departure_date()
