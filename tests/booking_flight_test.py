@@ -12,7 +12,8 @@ class TestBookingFlight:
     @pytest.mark.regression
     @allure.severity(Severity.BLOCKER)
     @allure.description("This test verifies that click on book a flight button after filling in the flight details "
-                        "will navigates to checkout page section by verifying url")
+                        "will navigates to checkout page "
+                        "section by verifying url")
     @allure.title("Verify flight booking redirects to checkout")
     def test_booking_flight(self):
         book_flight = HomePage(self.driver)

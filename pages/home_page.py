@@ -19,12 +19,15 @@ class HomePage(BasePage):
     DATE_PICKER_NEXT_BTN = (By.CSS_SELECTOR, "#right")
     SELECTED_DEPARTURE_DATE = (By.CSS_SELECTOR, "div[data-react-toolbox='date-picker']:nth-of-type(1) input["
                                                 "type='text']")
-    ADULTS_DROPDOWN = (By.CSS_SELECTOR, "[value='Adults (18+)']")
+    # ADULTS_DROPDOWN = (By.CSS_SELECTOR, "[value='Adults (18+)']")
+    ADULTS_DROPDOWN = (By.XPATH, "(//div[contains(@class, 'WhiteDropDown__dropdown')])[1]")  # Adjust the index if it's not the first dropdown.
     ADULTS_OPTIONS = (By.XPATH, "//ul[contains(@class, 'WhiteDropDown__values___3lOeL') and contains(., 'Adults')]//li")
-    CHILDREN_DROPDOWN = (By.CSS_SELECTOR, "[value='Children (0-7)']")
+    # CHILDREN_DROPDOWN = (By.CSS_SELECTOR, "[value='Children (0-7)']")
+    CHILDREN_DROPDOWN = (By.XPATH, "(//div[contains(@class, 'WhiteDropDown__dropdown')])[2]")
     CHILDREN_OPTIONS = (By.XPATH, "//ul[contains(@class, 'WhiteDropDown__values___3lOeL') and contains(., "
                                   "'Children')]//li")
-    PLANET_COLOR_DROPDOWN = (By.CSS_SELECTOR, "[value='Planet color']")
+    # PLANET_COLOR_DROPDOWN = (By.CSS_SELECTOR, "[value='Planet color']")
+    PLANET_COLOR_DROPDOWN = (By.XPATH, "(//div[contains(@class, 'Gallery__dropdown-size-1___3IWmB')])[2]")
     PLANET_COLOR_OPTION = (
         By.XPATH, "//ul[contains(@class, 'theme__values___1jS4g') and .//li[text()='Planet color']]//li")
     PROGRESS_BAR = (By.CSS_SELECTOR, "[data-react-toolbox='progress-bar']")
