@@ -19,14 +19,14 @@ class HomePage(BasePage):
     DATE_PICKER_NEXT_BTN = (By.CSS_SELECTOR, "#right")
     SELECTED_DEPARTURE_DATE = (By.CSS_SELECTOR, "div[data-react-toolbox='date-picker']:nth-of-type(1) input["
                                                 "type='text']")
-    ADULTS_DROPDOWN = (By.CSS_SELECTOR, "[value='Adults (18+)']")
+    ADULTS_DROPDOWN = (By.XPATH, "(//div[contains(@class, 'WhiteDropDown__dropdown')])[1]")
     ADULTS_OPTIONS = (By.XPATH, "//ul[contains(@class, 'WhiteDropDown__values___3lOeL') and contains(., 'Adults')]//li")
-    CHILDREN_DROPDOWN = (By.CSS_SELECTOR, "[value='Children (0-7)']")
+    CHILDREN_DROPDOWN = (By.XPATH, "(//div[contains(@class, 'WhiteDropDown__dropdown')])[2]")
     CHILDREN_OPTIONS = (By.XPATH, "//ul[contains(@class, 'WhiteDropDown__values___3lOeL') and contains(., "
                                   "'Children')]//li")
-    PLANET_COLOR_DROPDOWN = (By.CSS_SELECTOR, "[value='Planet color']")
-    PLANET_COLOR_OPTION = (
-        By.XPATH, "//ul[contains(@class, 'theme__values___1jS4g') and .//li[text()='Planet color']]//li")
+    PLANET_COLOR_DROPDOWN = (By.XPATH, "(//div[contains(@class, 'Gallery__dropdown-size-1___3IWmB')])[2]")
+    PLANET_COLOR_OPTION = (By.XPATH, "//ul[contains(@class, 'theme__values___1jS4g') and .//li[text()='Planet "
+                                     "color']]//li")
     PROGRESS_BAR = (By.CSS_SELECTOR, "[data-react-toolbox='progress-bar']")
     BOOK_BABAHOYO_BTN = (By.CSS_SELECTOR, " div > div:nth-child(3) > div button")
     SELECT_DESTINATION_BTN = (By.CSS_SELECTOR, ".Hero__cta-button___9VskW")
@@ -37,12 +37,12 @@ class HomePage(BasePage):
 
     def click_on_departure_picker(self):
         time.sleep(1)
-        dates = self.driver.find_elements(By.CSS_SELECTOR, "[data-react-toolbox='date-picker']")
+        dates = self.driver.find_elements(*self.DEPARTURE_DATE_PICKER)
         dates[0].click()
 
     def click_on_returning_picker(self):
         time.sleep(1)
-        dates = self.driver.find_elements(By.CSS_SELECTOR, "[data-react-toolbox='date-picker']")
+        dates = self.driver.find_elements(*self.DEPARTURE_DATE_PICKER)
         dates[1].click()
 
     def select_departure_date(self):
@@ -67,7 +67,7 @@ class HomePage(BasePage):
                 self.click(self.DATE_PICKER_NEXT_BTN)
                 time.sleep(1)  # Wait for the calendar to update
 
-        # Step 6: Click the target date in the calendar
+        # Click the target date in the calendar
         try:
             # Updated XPath to find the target date
             target_date_element = WebDriverWait(self.driver, 10).until(
@@ -190,8 +190,6 @@ class HomePage(BasePage):
         else:
             print(f"Value '{value}' not found in the planet color dropdown.")
 
-    from selenium.webdriver.common.action_chains import ActionChains
-
     def slide_to_price(self, target_price):
         # Locate the progress bar element
         WebDriverWait(self.driver, 10).until(
@@ -226,7 +224,7 @@ class HomePage(BasePage):
         self.driver.execute_script("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", button)
 
         # Optional: Wait a moment for the scrolling to finish
-        time.sleep(0.5)  # Adjust this as necessary
+        time.sleep(0.5)
 
         # Check if the button is clickable after scrolling
         button = WebDriverWait(self.driver, 10).until(
