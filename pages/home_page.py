@@ -37,12 +37,12 @@ class HomePage(BasePage):
 
     def click_on_departure_picker(self):
         time.sleep(1)
-        dates = self.driver.find_elements(By.CSS_SELECTOR, "[data-react-toolbox='date-picker']")
+        dates = self.driver.find_elements(*self.DEPARTURE_DATE_PICKER)
         dates[0].click()
 
     def click_on_returning_picker(self):
         time.sleep(1)
-        dates = self.driver.find_elements(By.CSS_SELECTOR, "[data-react-toolbox='date-picker']")
+        dates = self.driver.find_elements(*self.DEPARTURE_DATE_PICKER)
         dates[1].click()
 
     def select_departure_date(self):
