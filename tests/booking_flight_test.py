@@ -6,6 +6,7 @@ from pages.home_page import HomePage
 from utills.config import ConfigReader
 from pages.locators import HomePageLocators
 
+
 class TestBookingFlight:
 
     @pytest.mark.functional
@@ -25,7 +26,7 @@ class TestBookingFlight:
             book_flight.click_on_returning_picker()
             book_flight.select_returning_date()
             book_flight.click(HomePageLocators.CALENDER_OK_BTN)
-        book_flight.fill_travel_data(3,2, "blue", 1000, HomePageLocators.BOOK_BABAHOYO_BTN )
+        book_flight.fill_travel_data(3, 2, "blue", 1000, HomePageLocators.BOOK_BABAHOYO_BTN)
         with allure.step("Assert url change to checkout url"):
             current_url = book_flight.get_current_url()
             expected_url = ConfigReader.read_config("general", "checkout_url")
@@ -43,7 +44,7 @@ class TestBookingFlight:
             book_flight.click(HomePageLocators.CALENDER_OK_BTN)
         with allure.step("Assert selected departure date as requested"):
             displayed_departure_date = book_flight.get_selected_departure_date()
-            # Convert book_flight.departure_date to string for comparison
+            # Convert book_flight.departure_date to string
             assert displayed_departure_date == book_flight.departure_date.strftime("%d %B %Y")
 
     @pytest.mark.regression
@@ -62,4 +63,3 @@ class TestBookingFlight:
             current_url = book_flight.get_current_url()
             expected_url = ConfigReader.read_config("general", "destinations_url")
             assert current_url == expected_url
-
