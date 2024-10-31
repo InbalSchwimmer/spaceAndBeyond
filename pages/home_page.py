@@ -104,16 +104,13 @@ class HomePage(BasePage):
             print(f"Error retrieving selected departure date: {e}")
 
     def select_number_of_adults(self, value):
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(HomePageLocators.ADULTS_DROPDOWN)
-        )
+        self.wait_for_element_visibility(HomePageLocators.ADULTS_DROPDOWN)
+
         # Click the dropdown to display options
         self.click(HomePageLocators.ADULTS_DROPDOWN)
 
         # Wait until the options are visible
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(HomePageLocators.ADULTS_OPTIONS)
-        )
+        self.wait_for_element_visibility(HomePageLocators.ADULTS_OPTIONS)
 
         # Locate all the options in the dropdown specifically related to adults
         options = self.driver.find_elements(*HomePageLocators.ADULTS_OPTIONS)
@@ -129,15 +126,11 @@ class HomePage(BasePage):
     def select_number_of_children(self, value):
 
         # Click the dropdown to display options
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(HomePageLocators.CHILDREN_DROPDOWN)
-        )
+        self.wait_for_element_visibility(HomePageLocators.CHILDREN_DROPDOWN)
         self.click(HomePageLocators.CHILDREN_DROPDOWN)
 
         # Wait until the options are visible
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(HomePageLocators.CHILDREN_OPTIONS)
-        )
+        self.wait_for_element_visibility(HomePageLocators.CHILDREN_OPTIONS)
 
         # Locate all the options in the dropdown specifically related to adults
         options = self.driver.find_elements(*HomePageLocators.CHILDREN_OPTIONS)
@@ -151,14 +144,13 @@ class HomePage(BasePage):
             print(f"Value '{value}' not found in the children dropdown.")
 
     def select_planet_color(self, value):
-        time.sleep(1)
+        self.wait_for_clickable(HomePageLocators.PLANET_COLOR_DROPDOWN)
+        # time.sleep(1)
         # Click the dropdown to display options
         self.click(HomePageLocators.PLANET_COLOR_DROPDOWN)
 
         # Wait until the options are visible
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(HomePageLocators.PLANET_COLOR_OPTION)
-        )
+        self.wait_for_element_visibility(HomePageLocators.PLANET_COLOR_OPTION)
 
         # Locate all the options in the dropdown specifically related to adults
         options = self.driver.find_elements(*HomePageLocators.PLANET_COLOR_OPTION)
@@ -174,9 +166,8 @@ class HomePage(BasePage):
 
     def slide_to_price(self, target_price):
         # Locate the progress bar element
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(HomePageLocators.PROGRESS_BAR)
-        )
+        self.wait_for_element_visibility(HomePageLocators.PROGRESS_BAR)
+
         progress_bar = self.driver.find_element(*HomePageLocators.PROGRESS_BAR)
 
         # Retrieve min, max, and width properties of the progress bar
