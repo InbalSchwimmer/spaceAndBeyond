@@ -3,7 +3,8 @@ import time
 import allure
 import pytest
 from allure_commons.types import Severity
-
+from pages.locators import HomePageLocators
+from  pages.locators import CheckoutPageLocators
 from pages.checkout_page import Checkout
 from pages.home_page import HomePage
 
@@ -20,16 +21,16 @@ class TestCheckout:
         with allure.step("Select departure date"):
             book_flight.click_on_departure_picker()
             book_flight.select_departure_date()
-            book_flight.click(HomePage.CALENDER_OK_BTN)
+            book_flight.click(HomePageLocators.CALENDER_OK_BTN)
         with allure.step("Select returning date"):
             book_flight.click_on_returning_picker()
             book_flight.select_returning_date()
-            book_flight.click(HomePage.CALENDER_OK_BTN)
+            book_flight.click(HomePageLocators.CALENDER_OK_BTN)
         with allure.step("Check the order price"):
-            book_flight.fill_travel_data(3, 2, "blue", 1000, HomePage.BOOK_BABAHOYO_BTN)
+            book_flight.fill_travel_data(3, 2, "blue", 1000, HomePageLocators.BOOK_BABAHOYO_BTN)
         with allure.step("Assert number of travelers as was entered"):
             user = Checkout(self.driver)
-            num_of_travelers = user.get_text(user.NUMBER_OF_TRAVELERS)
+            num_of_travelers = user.get_text(CheckoutPageLocators.NUMBER_OF_TRAVELERS)
             assert num_of_travelers == "5 travelers"
 
     @pytest.mark.regression
@@ -42,17 +43,17 @@ class TestCheckout:
         with allure.step("Select departure date"):
             book_flight.click_on_departure_picker()
             book_flight.select_departure_date()
-            book_flight.click(HomePage.CALENDER_OK_BTN)
+            book_flight.click(HomePageLocators.CALENDER_OK_BTN)
         with allure.step("Select returning date"):
             book_flight.click_on_returning_picker()
             book_flight.select_returning_date()
-            book_flight.click(HomePage.CALENDER_OK_BTN)
+            book_flight.click(HomePageLocators.CALENDER_OK_BTN)
         with allure.step("Check the order price"):
-            book_flight.fill_travel_data(3, 2, "blue", 1000, HomePage.BOOK_BABAHOYO_BTN)
+            book_flight.fill_travel_data(3, 2, "blue", 1000, HomePageLocators.BOOK_BABAHOYO_BTN)
         with allure.step("Check the order price"):
             user = Checkout(self.driver)
             expected_price = user.calculate_price_order(5, "babahoyo")
-            order_price = user.get_text(user.ORDER_TOTAL_SUM)
+            order_price = user.get_text(CheckoutPageLocators.ORDER_TOTAL_SUM)
             actual_price = user.price_without_signs(order_price)
         with allure.step("Assert actual_price is equal to expected_price"):
             assert actual_price == expected_price

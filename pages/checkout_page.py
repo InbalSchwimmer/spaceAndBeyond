@@ -1,13 +1,8 @@
-from selenium.webdriver.common.by import By
-
 from pages.base_page import BasePage
 from utills.config import ConfigReader
 
 
 class Checkout(BasePage):
-    NAME_TEXT_FILED = (By.XPATH, "//div[@data-react-toolbox='input']//span[text()='Name']/preceding-sibling::input")
-    NUMBER_OF_TRAVELERS = (By.XPATH, "//div[@class ='flexboxgrid__col-xs-7___3o2m-' and contains(text(), 'travelers')]")
-    ORDER_TOTAL_SUM = (By.CSS_SELECTOR, ".OrderSummary__headline-1___1lzsL")
 
     def __init__(self, driver):
         super().__init__(driver)
