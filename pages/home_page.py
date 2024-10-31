@@ -1,35 +1,17 @@
 import time
-
 import allure
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-
+from pages.locators import HomePageLocators
+from pages.locators import CheckoutPageLocators
 from pages.base_page import BasePage
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
 
 class HomePage(BasePage):
-    DEPARTURE_DATE_PICKER = (By.CSS_SELECTOR, "[data-react-toolbox='date-picker']")
-    RETURNING_DATE_PICKER = (By.XPATH, "//label[text() = 'Returning']")
-    MONTH_YEAR_SELECTOR = (By.XPATH, "//span[@class='theme__title___2Ue3-']")
-    CALENDER_OK_BTN = (By.XPATH, "//button[text()='Ok']")
-    DATE_PICKER_NEXT_BTN = (By.CSS_SELECTOR, "#right")
-    SELECTED_DEPARTURE_DATE = (By.CSS_SELECTOR, "div[data-react-toolbox='date-picker']:nth-of-type(1) input["
-                                                "type='text']")
-    ADULTS_DROPDOWN = (By.XPATH, "(//div[contains(@class, 'WhiteDropDown__dropdown')])[1]")
-    ADULTS_OPTIONS = (By.XPATH, "//ul[contains(@class, 'WhiteDropDown__values___3lOeL') and contains(., 'Adults')]//li")
-    CHILDREN_DROPDOWN = (By.XPATH, "(//div[contains(@class, 'WhiteDropDown__dropdown')])[2]")
-    CHILDREN_OPTIONS = (By.XPATH, "//ul[contains(@class, 'WhiteDropDown__values___3lOeL') and contains(., "
-                                  "'Children')]//li")
-    PLANET_COLOR_DROPDOWN = (By.XPATH, "(//div[contains(@class, 'Gallery__dropdown-size-1___3IWmB')])[2]")
-    PLANET_COLOR_OPTION = (By.XPATH, "//ul[contains(@class, 'theme__values___1jS4g') and .//li[text()='Planet "
-                                     "color']]//li")
-    PROGRESS_BAR = (By.CSS_SELECTOR, "[data-react-toolbox='progress-bar']")
-    BOOK_BABAHOYO_BTN = (By.CSS_SELECTOR, " div > div:nth-child(3) > div button")
-    SELECT_DESTINATION_BTN = (By.CSS_SELECTOR, ".Hero__cta-button___9VskW")
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -37,12 +19,12 @@ class HomePage(BasePage):
 
     def click_on_departure_picker(self):
         time.sleep(1)
-        dates = self.driver.find_elements(*self.DEPARTURE_DATE_PICKER)
+        dates = self.driver.find_elements(*HomePageLocators.DEPARTURE_DATE_PICKER)
         dates[0].click()
 
     def click_on_returning_picker(self):
         time.sleep(1)
-        dates = self.driver.find_elements(*self.DEPARTURE_DATE_PICKER)
+        dates = self.driver.find_elements(*HomePageLocators.DEPARTURE_DATE_PICKER)
         dates[1].click()
 
     def select_departure_date(self):
@@ -54,7 +36,7 @@ class HomePage(BasePage):
 
         while True:
             # Locate the month and year displayed in the calendar
-            displayed_month_year = self.get_text(self.MONTH_YEAR_SELECTOR)
+            displayed_month_year = self.get_text(HomePageLocators.MONTH_YEAR_SELECTOR)
             displayed_month = displayed_month_year.split()[0]
             displayed_year = displayed_month_year.split()[1]
 
@@ -64,7 +46,7 @@ class HomePage(BasePage):
                 break
             else:
                 # Click the next button to go to the next month
-                self.click(self.DATE_PICKER_NEXT_BTN)
+                self.click(HomePageLocators.DATE_PICKER_NEXT_BTN)
                 time.sleep(1)  # Wait for the calendar to update
 
         # Click the target date in the calendar
@@ -87,7 +69,7 @@ class HomePage(BasePage):
 
         while True:
             # Locate the month and year displayed in the calendar
-            displayed_month_year = self.get_text(self.MONTH_YEAR_SELECTOR)
+            displayed_month_year = self.get_text(HomePageLocators.MONTH_YEAR_SELECTOR)
             displayed_month = displayed_month_year.split()[0]
             displayed_year = displayed_month_year.split()[1]
 
@@ -96,7 +78,7 @@ class HomePage(BasePage):
                 break
             else:
                 # Click the next button to go to the next month
-                self.click(self.DATE_PICKER_NEXT_BTN)
+                self.click(HomePageLocators.DATE_PICKER_NEXT_BTN)
                 time.sleep(1)  # Wait for the calendar to update
 
         # Click the target date in the calendar
@@ -112,7 +94,7 @@ class HomePage(BasePage):
         try:
             # Locate the departure date input field using the updated selector
             departure_date_element = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(self.SELECTED_DEPARTURE_DATE)
+                EC.visibility_of_element_located(HomePageLocators.SELECTED_DEPARTURE_DATE)
             )
             # Retrieve and print the departure date value for debugging
             date_value = departure_date_element.get_attribute('value')
@@ -123,18 +105,18 @@ class HomePage(BasePage):
 
     def select_number_of_adults(self, value):
         WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.ADULTS_DROPDOWN)
+            EC.visibility_of_element_located(HomePageLocators.ADULTS_DROPDOWN)
         )
         # Click the dropdown to display options
-        self.click(self.ADULTS_DROPDOWN)
+        self.click(HomePageLocators.ADULTS_DROPDOWN)
 
         # Wait until the options are visible
         WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.ADULTS_OPTIONS)
+            EC.visibility_of_element_located(HomePageLocators.ADULTS_OPTIONS)
         )
 
         # Locate all the options in the dropdown specifically related to adults
-        options = self.driver.find_elements(*self.ADULTS_OPTIONS)
+        options = self.driver.find_elements(*HomePageLocators.ADULTS_OPTIONS)
 
         # Loop through the options and select the one that matches the value
         for option in options:
@@ -148,17 +130,17 @@ class HomePage(BasePage):
 
         # Click the dropdown to display options
         WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.CHILDREN_DROPDOWN)
+            EC.visibility_of_element_located(HomePageLocators.CHILDREN_DROPDOWN)
         )
-        self.click(self.CHILDREN_DROPDOWN)
+        self.click(HomePageLocators.CHILDREN_DROPDOWN)
 
         # Wait until the options are visible
         WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.CHILDREN_OPTIONS)
+            EC.visibility_of_element_located(HomePageLocators.CHILDREN_OPTIONS)
         )
 
         # Locate all the options in the dropdown specifically related to adults
-        options = self.driver.find_elements(*self.CHILDREN_OPTIONS)
+        options = self.driver.find_elements(*HomePageLocators.CHILDREN_OPTIONS)
 
         # Loop through the options and select the one that matches the value
         for option in options:
@@ -171,15 +153,15 @@ class HomePage(BasePage):
     def select_planet_color(self, value):
         time.sleep(1)
         # Click the dropdown to display options
-        self.click(self.PLANET_COLOR_DROPDOWN)
+        self.click(HomePageLocators.PLANET_COLOR_DROPDOWN)
 
         # Wait until the options are visible
         WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.PLANET_COLOR_OPTION)
+            EC.visibility_of_element_located(HomePageLocators.PLANET_COLOR_OPTION)
         )
 
         # Locate all the options in the dropdown specifically related to adults
-        options = self.driver.find_elements(*self.PLANET_COLOR_OPTION)
+        options = self.driver.find_elements(*HomePageLocators.PLANET_COLOR_OPTION)
         color_value = str(value).lower()
         # Loop through the options and select the one that matches the value
         for option in options:
@@ -193,9 +175,9 @@ class HomePage(BasePage):
     def slide_to_price(self, target_price):
         # Locate the progress bar element
         WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.PROGRESS_BAR)
+            EC.visibility_of_element_located(HomePageLocators.PROGRESS_BAR)
         )
-        progress_bar = self.driver.find_element(*self.PROGRESS_BAR)
+        progress_bar = self.driver.find_element(*HomePageLocators.PROGRESS_BAR)
 
         # Retrieve min, max, and width properties of the progress bar
         min_value = int(progress_bar.get_attribute("aria-valuemin"))
