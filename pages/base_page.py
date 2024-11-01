@@ -64,3 +64,9 @@ class BasePage:
                 return self.driver.find_elements(*locator)
         except NoSuchElementException:
             print("Element not exist")
+
+    @staticmethod
+    def change_format_date(date):
+        # change the date format example:  01 January 2025
+        return date.strftime("%#d %B %Y")
+
