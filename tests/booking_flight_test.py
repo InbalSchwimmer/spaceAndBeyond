@@ -45,7 +45,8 @@ class TestBookingFlight:
         with allure.step("Assert selected departure date as requested"):
             displayed_departure_date = book_flight.get_selected_departure_date()
             # Convert book_flight.departure_date to string
-            assert displayed_departure_date == book_flight.departure_date.strftime("%#d %B %Y")
+            expected_date = book_flight.change_format_date(book_flight.departure_date)
+            assert displayed_departure_date == expected_date
 
     @pytest.mark.regression
     @allure.severity(Severity.NORMAL)
