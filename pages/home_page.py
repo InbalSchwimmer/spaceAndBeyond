@@ -4,8 +4,7 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-from pages.locators import HomePageLocators
-from pages.locators import CheckoutPageLocators
+from data.locators import HomePageLocators
 from pages.base_page import BasePage
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta

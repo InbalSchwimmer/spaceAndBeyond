@@ -1,10 +1,8 @@
-import time
-
 import allure
 import pytest
 from allure_commons.types import Severity
-from pages.locators import HomePageLocators
-from  pages.locators import CheckoutPageLocators
+from data.locators import HomePageLocators
+from data.locators import CheckoutPageLocators
 from pages.checkout_page import Checkout
 from pages.home_page import HomePage
 
