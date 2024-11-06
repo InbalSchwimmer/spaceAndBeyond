@@ -76,12 +76,15 @@ allure serve allure-results
 
 ## 📁 Project Structure
 ```
-├───.venv
-├───pages
+project_root/
+│
+├── data/              
+│       
+├── pages/             
 │   
-├───tests
-│   ├───allure-results
-│  
-└───utills
+├── tests/            
+│   └── allure-results
+│
+└── utills    
 
 ```
