@@ -1,10 +1,9 @@
-import time
 import allure
 import pytest
 from allure_commons.types import Severity
 from pages.home_page import HomePage
 from utills.config import ConfigReader
-from pages.locators import HomePageLocators
+from data.locators import HomePageLocators
 
 
 class TestBookingFlight:
